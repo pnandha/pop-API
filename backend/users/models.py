@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
 from phone_field import PhoneField
+from products.models import Products
 
 class User(AbstractUser): 
     username = None
@@ -10,6 +11,7 @@ class User(AbstractUser):
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     mobileNumber = PhoneField(blank=True, help_text='Contact phone number')
+    saves =  models.ManyToManyField(Products)
 
 
     USERNAME_FIELD = 'email'
