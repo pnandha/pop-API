@@ -138,3 +138,8 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALL0W_CREDENTIALS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS' : "rest_framework.pagination.LimitOffsetPagination",
+}
