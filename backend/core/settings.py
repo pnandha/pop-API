@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -143,3 +144,8 @@ CORS_ALL0W_CREDENTIALS = True
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS' : "rest_framework.pagination.LimitOffsetPagination",
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 15242880

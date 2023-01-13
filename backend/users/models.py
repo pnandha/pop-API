@@ -11,7 +11,7 @@ class User(AbstractUser):
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     mobileNumber = PhoneField(blank=True, help_text='Contact phone number')
-    saves =  models.ManyToManyField(Products)
+    saves = models.ManyToManyField(Products)
 
 
     USERNAME_FIELD = 'email'

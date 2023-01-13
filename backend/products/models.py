@@ -2,6 +2,10 @@ from django.db import models
 import uuid
 from django.conf import settings
 
+def upload_to(instance, filename):
+    return 'images/productImages/{filename}'.format(filename=filename)
+
+
 class Category(models.Model): 
     name = models.CharField(max_length=255)
 
@@ -12,6 +16,8 @@ class Products(models.Model):
     trading_for = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    expire = models.DateTimeField()
+    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE) 
 
 

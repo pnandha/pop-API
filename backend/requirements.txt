@@ -3,3 +3,5 @@ djangorestframework
 pyyaml
 requests
 psycopg2
+Pillow
+django-phone-field
