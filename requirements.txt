@@ -12,3 +12,5 @@ PyJWT
 psycopg2-binary
 pymysql
 python-dotenv
+django-storages
+boto3
