@@ -146,6 +146,30 @@ class SaveProdView(APIView):
             "product_total": total_products,
             }
         )
+
+
+class UpdateUserView(APIView):
+    def post(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated') 
+
+        try: 
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated')
+
+        user = User.objects.filter(id=uuid.UUID(payload['id'])).first()
+        print(request.data)
+        user.userLocation = request.data['location']
+        user.userStringLocation = request.data['stringLocation']
+        user.name = request.data['name']
+        user.save()
+        
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
         
 
 class UnsaveProductView(APIView):

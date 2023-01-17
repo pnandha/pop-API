@@ -13,6 +13,7 @@ class User(AbstractUser):
     mobileNumber = PhoneField(blank=True, help_text='Contact phone number')
     saves = models.ManyToManyField(Products)
     userLocation = models.PointField()
+    userStringLocation = models.CharField(max_length=255)
 
 
     USERNAME_FIELD = 'email'
