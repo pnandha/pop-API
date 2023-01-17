@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
 from phone_field import PhoneField
@@ -12,6 +12,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     mobileNumber = PhoneField(blank=True, help_text='Contact phone number')
     saves = models.ManyToManyField(Products)
+    userLocation = models.PointField()
 
 
     USERNAME_FIELD = 'email'

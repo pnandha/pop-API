@@ -15,6 +15,7 @@ from users.models import User
 from users.serializers import UserSerializer
 from .serializers import ProductSerializer, CategorySerializer, ProductCreatorSerializer
 from django.utils import timezone
+from django.contrib.gis.db.models.functions import Distance
 
 
 
@@ -170,6 +171,7 @@ class GetProductsView(APIView):
         end = page * page_size
         total_products = products.count()
         saved_products = user.saves.all()
+        products = products.annotate(distance=Distance('location', 'user_id__userLocation')).order_by('distance')
         for product in products:
             product.is_saved = product in saved_products
         serializer = ProductSerializer(products[start : end] ,many=True)

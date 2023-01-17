@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users',
     'products',
     'phone_field',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default':{
-      'ENGINE':'django.db.backends.postgresql_psycopg2',
+      'ENGINE':'django.contrib.gis.db.backends.postgis',
       'NAME':'popdatabase',
       'USER':'postgres',
       'PASSWORD':'password',

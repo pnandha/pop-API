@@ -1,7 +1,13 @@
+asgiref
+sqlparse
 django
 djangorestframework
 pyyaml
 requests
-psycopg2
+django-cors-headers
 Pillow
 django-phone-field
+gunicorn
+PyJWT
+psycopg2-binary
+pymysql

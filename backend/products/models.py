@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 import uuid
 from django.conf import settings
 
@@ -15,7 +15,8 @@ class Products(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     trading_for = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    location = models.PointField()
+    stringPostalCode = models.CharField(max_length=10)
     expire = models.DateTimeField()
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE) 

@@ -6,7 +6,7 @@ from .models import Products
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'mobileNumber', 'password']
+        fields = ['id', 'name', 'email', 'mobileNumber', 'userLocation', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -37,7 +37,7 @@ class AllUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'mobileNumber', 'saves', 'user_products']
+        fields = ['id', 'name', 'email', 'mobileNumber', 'userLocation', 'saves', 'user_products']
 
 class SaveSerializer(serializers.ModelSerializer):
     saves = ProductSerializer(read_only=True, many=True)
