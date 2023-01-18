@@ -15,10 +15,11 @@ class UserManager(BaseUserManager):
             user.set_password(password)
         else:
             user.set_unusable_password()
+        user.save()
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields = {**extra_fields, "is_staff": True, "is_superuser": True}
+        extra_fields = {**extra_fields, "is_staff": True, "is_superuser": True, "userLocation": 'POINT (0 0)'}
         user = self.create_user(email=email, password=password, **extra_fields)
         return user
 
