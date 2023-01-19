@@ -19,18 +19,18 @@ from django.contrib.gis.db.models.functions import Distance
 from django.conf import settings
 import boto3
 
-def delete_expired_products():
-    now = timezone.now()
-    products = Products.objects.filter(expire__lt=now)
-    s3 = boto3.client(
-        's3',
-        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-    )
-    for product in products:
-        if product.image_url:
-            s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
-    products.delete()
+# def delete_expired_products():
+#     now = timezone.now()
+#     products = Products.objects.filter(expire__lt=now)
+#     s3 = boto3.client(
+#         's3',
+#         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+#         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+#     )
+#     for product in products:
+#         if product.image_url:
+#             s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
+#     products.delete()
 
 
 # Create your views here.
@@ -78,14 +78,14 @@ class DeleteProductView(APIView):
         product_id = body.get('id')
 
         products = Products.objects.filter(id=product_id)
-        s3 = boto3.client(
-        's3',
-        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-        )
-        for product in products:
-            if product.image_url:
-                s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
+        # s3 = boto3.client(
+        # 's3',
+        # aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        # aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        # )
+        # for product in products:
+        #     if product.image_url:
+        #         s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
         products.delete()
 
         return Response({
