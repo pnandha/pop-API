@@ -27,10 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-s(j!zxe$g8xmv&hyt!szdqap)xp&b797hoc@vbtg*(dk9)n-w7'
 
+# testing ci/cd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "18.132.237.88", "api-pop.co.uk", "api.api-pop.co.uk"]
+ALLOWED_HOSTS = ["127.0.0.1", "18.132.237.88",
+                 "api-pop.co.uk", "api.api-pop.co.uk"]
 
 
 # Application definition
