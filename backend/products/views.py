@@ -19,18 +19,9 @@ from django.contrib.gis.db.models.functions import Distance
 
 
 
-def delete_expired_products():
-    now = timezone.now()
-    products = Products.objects.filter(expire__lt=now)
-    for product in products:
-        if product.image_url and os.path.isfile(product.image_url.path):
-            os.remove(product.image_url.path)
-    products.delete()
-
 # Create your views here.
 class CreateProductView(APIView):
     def post(self, request):
-        delete_expired_products()
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -54,7 +45,6 @@ class CreateProductView(APIView):
 
 class DeleteProductView(APIView):
     def delete(self, request):
-        delete_expired_products()
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -85,7 +75,6 @@ class DeleteProductView(APIView):
 
 class CreateCategoryView(APIView):
     def post(self, request):
-          delete_expired_products()
           token = request.COOKIES.get('jwt')
 
           if not token:
@@ -105,7 +94,6 @@ class CreateCategoryView(APIView):
 
 class GetProductByUserIdView(APIView):
     def get(self, request):
-        delete_expired_products()
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -137,7 +125,6 @@ class GetProductByUserIdView(APIView):
 
 class GetProductsView(APIView):
     def get(self, request):
-        delete_expired_products()
         token = request.COOKIES.get('jwt')
 
         if not token:
