@@ -21,6 +21,6 @@ class Products(models.Model):
     description = models.CharField(max_length=255)
     location = models.PointField()
     stringPostalCode = models.CharField(max_length=10)
-    expire = models.DateField(auto_now_add=True, default=timezone.now())
+    expire = models.DateTimeField(auto_now_add=True, default=timezone.now())
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
