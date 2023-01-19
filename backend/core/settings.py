@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-s(j!zxe$g8xmv&hyt!szdqap)xp&b797hoc@vbtg*(dk9)n-w7
 
 # testing ci/cd
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "18.132.237.88",
                  "api-pop.co.uk", "api.api-pop.co.uk"]
