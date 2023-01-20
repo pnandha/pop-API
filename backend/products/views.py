@@ -52,8 +52,7 @@ class CreateProductView(APIView):
         user = User.objects.filter(id=uuid.UUID(payload['id'])).first()
         
 
-        image = request.FILES.get('image')
-        serializer = ProductCreatorSerializer(data=request.data, files={'image_url': image})
+        serializer = ProductCreatorSerializer(data=request.data)    
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
