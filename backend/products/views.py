@@ -53,8 +53,7 @@ class CreateProductView(APIView):
         
 
         image = request.FILES.get('image')
-        request.data['image_url'] = image
-        serializer = ProductCreatorSerializer(data=request.data)
+        serializer = ProductCreatorSerializer(data=request.data, files={'image_url': image})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
