@@ -24,13 +24,13 @@ import boto3
 #     now = timezone.now()
 #     products = Products.objects.filter(expire__lt=now)
 #     s3 = boto3.client(
-#         's3',
-#         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+#          's3',
+#          aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
 #         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 #     )
 #     for product in products:
 #         if product.image_url:
-#             s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
+#              s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
 #     products.delete()
 
 
@@ -77,14 +77,13 @@ class DeleteProductView(APIView):
         if isinstance(body, bytes):
             body = json.loads(body.decode())
         product_id = body.get('id')
-        
         s3 = boto3.client(
         's3',         
-        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
         )
         products = Products.objects.filter(id=product_id).first()
-        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=products.image_url)
+        s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=products.image_url)
         products.delete()
 
         return Response({
