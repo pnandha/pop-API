@@ -83,7 +83,7 @@ class DeleteProductView(APIView):
         aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
         )
         products = Products.objects.filter(id=product_id).first()
-        s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=products.image_url)
+        s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=str(products.image_url))
         products.delete()
 
         return Response({
