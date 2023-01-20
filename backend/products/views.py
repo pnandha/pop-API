@@ -20,23 +20,24 @@ from django.conf import settings
 import os
 import boto3
 
-# def delete_expired_products():
-#     now = timezone.now()
-#     products = Products.objects.filter(expire__lt=now)
-#     s3 = boto3.client(
-#          's3',
-#          aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-#         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-#     )
-#     for product in products:
-#         if product.image_url:
-#              s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=product.image_url)
-#     products.delete()
+def delete_expired_products():
+    now = timezone.now()
+    products = Products.objects.filter(expire__lt=now)
+    s3 = boto3.client(
+        's3',         
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+        )
+    for product in products:
+        if product.image_url:
+             s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=str(product.image_url))
+    products.delete()
 
 
 # Create your views here.
 class CreateProductView(APIView):
     def post(self, request):
+        delete_expired_products()
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -59,6 +60,7 @@ class CreateProductView(APIView):
         return Response(serializer.data)
 
 class DeleteProductView(APIView):
+    delete_expired_products()
     def delete(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -91,6 +93,7 @@ class DeleteProductView(APIView):
         })
 
 class CreateCategoryView(APIView):
+    delete_expired_products()
     def post(self, request):
           token = request.COOKIES.get('jwt')
 
@@ -110,6 +113,7 @@ class CreateCategoryView(APIView):
 
 
 class GetProductByUserIdView(APIView):
+    delete_expired_products()
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -141,6 +145,7 @@ class GetProductByUserIdView(APIView):
         )
 
 class GetProductsView(APIView):
+    delete_expired_products()
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
