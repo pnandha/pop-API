@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-s(j!zxe$g8xmv&hyt!szdqap)xp&b797hoc@vbtg*(dk9)n-w7
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "18.132.237.88",
-                 "api-pop.co.uk", "api.api-pop.co.uk"]
+                 "api-pop.co.uk", "api.api-pop.co.uk", 'localhost']
 
 
 # Application definition
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
 
-    'storages',
+    # 'storages',
 
     'rest_framework',
     'users',
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'popdatabase',
@@ -100,18 +100,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
         'HOST': 'localhost',
         'PORT': '5432',
     }
-} """
+} 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': os.getenv("DB_NAME"),
+#         'USER': os.getenv("DB_USER"),
+#         'PASSWORD': os.getenv("DB_PASSWORD"),
+#         'HOST': os.getenv("DB_HOST"),
+#         'PORT': os.getenv("DB_PORT"),
+#     }
+# }
 
 
 # Password validation
@@ -162,40 +162,40 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.LimitOffsetPagination",
 }
 
-""" MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/" """
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/" 
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 55242880
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 55242880
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
 
-AWS_STATIC_LOCATION = 'static/'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# AWS_STATIC_LOCATION = 'static/'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
-AWS_PUBLIC_MEDIA_LOCATION = 'media/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_PUBLIC_MEDIA_LOCATION}/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_PUBLIC_MEDIA_LOCATION = 'media/'
+# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_PUBLIC_MEDIA_LOCATION}/'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = True
 
 # Please comment this part while you are trying on development mode. On production, please don't push changes without this part.
-SECURE_HSTS_SECONDS = 30  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-CSRF_TRUSTED_ORIGINS = ['https://*.api-pop.co.uk']
+# SECURE_HSTS_SECONDS = 30  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# CSRF_TRUSTED_ORIGINS = ['https://*.api-pop.co.uk']

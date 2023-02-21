@@ -3,6 +3,7 @@ from multiprocessing import AuthenticationError
 from urllib import response
 from uuid import UUID
 import uuid
+from xml.dom import ValidationErr
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,6 +24,9 @@ class RegisterView(APIView):
     def post(self, request):
      serializer = UserSerializer(data=request.data)
      serializer.is_valid(raise_exception=True)
+     email = request.data.get('email')
+     if User.objects.filter(email=email).exists():
+            raise ValidationErr({'email': 'Email already exists'})
      serializer.save()
      return Response(serializer.data)
 

@@ -20,18 +20,15 @@ from django.conf import settings
 import os
 import boto3
 
+
 def delete_expired_products():
     now = timezone.now()
     products = Products.objects.filter(expire__lt=now)
-    s3 = boto3.client(
-        's3',         
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-        )
     for product in products:
-        if product.image_url:
-             s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=str(product.image_url))
+        if product.image_url and os.path.isfile(product.image_url.path):
+            os.remove(product.image_url.path)
     products.delete()
+
 
 
 # Create your views here.
@@ -77,13 +74,10 @@ class DeleteProductView(APIView):
         if isinstance(body, bytes):
             body = json.loads(body.decode())
         product_id = body.get('id')
-        s3 = boto3.client(
-        's3',         
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-        )
         products = Products.objects.filter(id=product_id).first()
-        s3.delete_object(Bucket=os.getenv('AWS_STORAGE_BUCKET_NAME'), Key=str(products.image_url))
+        for product in products:
+            if product.image_url and os.path.isfile(product.image_url.path):
+                os.remove(product.image_url.path)
         products.delete()
 
         return Response({

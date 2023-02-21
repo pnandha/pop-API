@@ -2,7 +2,8 @@ from django.contrib.gis.db import models
 import uuid
 from django.conf import settings
 from django.utils import timezone
-
+from django.dispatch import receiver
+from django.core.files.storage import default_storage
 
 def upload_to(instance, filename):
     return 'images/productImages/{filename}'.format(filename=filename)
@@ -21,6 +22,6 @@ class Products(models.Model):
     description = models.CharField(max_length=255)
     location = models.PointField()
     stringPostalCode = models.CharField(max_length=10)
-    expire = models.DateTimeField(auto_now_add=True, default=timezone.now())
+    expire = models.DateTimeField(default=timezone.now)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
