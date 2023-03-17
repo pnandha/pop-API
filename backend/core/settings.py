@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-s(j!zxe$g8xmv&hyt!szdqap)xp&b797hoc@vbtg*(dk9)n-w7
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "18.132.237.88",
-                 "api-pop.co.uk", "api.api-pop.co.uk"]
+                 "api-pop.co.uk", "api.api-pop.co.uk", "www.api-pop.co.uk"]
 
 
 # Application definition
